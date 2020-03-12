@@ -1,16 +1,43 @@
-.App {
+body {
   background-color: #282c34;
-  color: white;
   justify-content: center;
+  color: white;
+}
+
+.App {
+  margin: 50px 20px 0px 20px;
 }
 
 .App-code-editors {
   display: flex;
-
+  margin-top: 10px;
+  width: auto;
 }
 
-.warning
-{
+.tree-wrapper {
+  background: white;
+  margin-top: 10px;
+  height: 20em;
+}
+
+.ace-editor {
+  width: auto;
+  padding-right: 5px;
+}
+
+.user-io {
+  width: auto;
+}
+
+.user-io-input {
+  width: auto;
+}
+
+.user-io-output {
+  width: auto;
+}
+
+.warning {
     background: rgba(255, 50, 50, 0.1);
     position: absolute;
 }

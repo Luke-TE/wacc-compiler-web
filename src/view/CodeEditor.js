@@ -18,7 +18,7 @@ class CodeEditor extends React.Component {
     // Render editor
     render() {
         return (
-            <div>
+            <div className="ace-editor">
                 {this.heading()}
                 <AceEditor
                     mode="java"
@@ -26,10 +26,12 @@ class CodeEditor extends React.Component {
                     className="aceeditor"
 
                     onChange={(newValue) => {
-                        this.props.onCodeChange(newValue)
+                        if (this.props.onCodeChange !== undefined)
+                            this.props.onCodeChange(newValue)
                     }}
                     value={this.props.value}
                     markers={this.props.markers}
+                    readOnly={this.props.readOnly}
 
                     editorProps={{ $blockScrolling: true }} />
             </div>

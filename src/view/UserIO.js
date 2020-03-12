@@ -22,10 +22,10 @@ class UserIO extends React.Component {
 
     render() {
         return (
-            <div className="userIO">
-                <textarea value={this.state.programOutput} />
+            <div className="user-io">
+                <textarea className="user-io-output" value={this.state.programOutput} />
 
-                <div className="userIO-input">
+                <div className="user-io-input">
                     <input value={this.state.programInput} onChange={this.onInputChange}></input>
                     <button type="submit">submit</button>
                 </div>

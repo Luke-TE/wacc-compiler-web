@@ -69,7 +69,7 @@ class App extends React.Component {
             readOnly={true} />
         </div>
 
-        <div id="treeWrapper" style={{ width: '50em', height: '20em', background: 'white' }}>
+        <div className="tree-wrapper">
           <Tree
             data={this.state.graphData}
             orientation="vertical" />
