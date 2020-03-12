@@ -7,6 +7,8 @@ import ButtonStrip from './view/ButonStrip'
 import CodeEditor from './view/CodeEditor'
 import UserIO from './view/UserIO'
 
+import {sendWaccCode, astMetaToGraphData} from './Comm'
+
 import './App.css';
 
 class App extends React.Component {
@@ -25,7 +27,8 @@ class App extends React.Component {
       arm: {
         code: "",
         markers: [],
-      }
+      },
+      graphData: [{}],
     }
   }
 
@@ -38,11 +41,22 @@ class App extends React.Component {
     })
   }
 
+  processWaccCode = (code) => {
+    let rsp = sendWaccCode(code)
+    let graph = astMetaToGraphData(rsp.astMeta)
+
+    this.setState({
+      arm: {code: rsp.armCode},
+      js: {code: rsp.jsCode},
+      graphData: graph
+    })
+  }
+
   render() {
     return (
       <div className="App">
         <ButtonStrip
-          onCompileClick={(e) => { alert("Compiling wacc\n\"" + this.state.wacc.code + "\"") }}
+          onCompileClick={(e) => { this.processWaccCode(this.state.wacc.code) }}
           onStepJsClick={(e) => { this.setState({js: {code: "Hello World!"}}) }} />
 
         <div className="App-code-editors">
@@ -63,7 +77,7 @@ class App extends React.Component {
 
         <div id="treeWrapper" style={{ width: '50em', height: '20em', background: 'white' }}>
           <Tree
-            data={testGraphData}
+            data={this.state.graphData}
             orientation="vertical" />
         </div>
 
@@ -72,13 +86,5 @@ class App extends React.Component {
     )
   }
 }
-
-const testGraphData = [{
-  name: "WACC Program", children: [{
-    name: "BinOP", attributes: { operation: "Add" },
-    children: [{ name: "Const", attributes: { value: "1" } }, { name: "VarIdent", attributes: { ident: "x" } }]
-  }]
-}];
-
 
 export default App;
