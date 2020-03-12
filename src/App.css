@@ -1,4 +1,16 @@
 .App {
   background-color: #282c34;
   color: white;
+  justify-content: center;
+}
+
+.App-code-editors {
+  display: flex;
+
+}
+
+.warning
+{
+    background: rgba(255, 50, 50, 0.1);
+    position: absolute;
 }
