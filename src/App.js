@@ -16,18 +16,9 @@ class App extends React.Component {
     super(props)
 
     this.state = {
-      wacc: {
-        code: "",
-        markers: [],
-      },
-      js: {
-        code: "",
-        markers: [],
-      },
-      arm: {
-        code: "",
-        markers: [],
-      },
+      wacc: {code: "", markers: [],},
+      js:   {code: "", markers: [],},
+      arm:  {code: "", markers: [],},
       graphData: [{}],
     }
   }
