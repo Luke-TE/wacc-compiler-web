@@ -6,10 +6,10 @@ import Tree from 'react-d3-tree';
 import ButtonStrip from './view/ButonStrip'
 import CodeEditor from './view/CodeEditor'
 import UserIO from './view/UserIO'
+import Terminal from 'terminal-in-react';
 
 import {sendWaccCode, astMetaToGraphData} from './Comm'
 
-import './App.css';
 
 class App extends React.Component {
   constructor(props) {
@@ -33,6 +33,12 @@ class App extends React.Component {
     })
   }
 
+  readInputCallBack = (input) => {
+
+    console.log(test)
+    test = "";
+  }
+
   processWaccCode = (code) => {
     let rsp = sendWaccCode(code)
     let graph = astMetaToGraphData(rsp.astMeta)
@@ -49,7 +55,8 @@ class App extends React.Component {
       <div className="App">
         <ButtonStrip
           onCompileClick={(e) => { this.processWaccCode(this.state.wacc.code) }}
-          onStepJsClick={(e) => { this.setState({js: {code: "Hello World!"}}) }} />
+          onStepJsClick={(e) => { this.setState({js: {code: "Hello World!"}}) }}
+          onStepOverAstClick = {(e) => { this.readInputCallBack(e)}}/>
 
         <div className="App-code-editors">
           <CodeEditor
@@ -73,6 +80,9 @@ class App extends React.Component {
           <Tree
             data={this.state.graphData}
             orientation="vertical" />
+        </div>
+        <div id="inputoutput">
+          <Terminal commandPassThrough={cmd => {test = cmd[0]}} watchConsoleLogging/>
         </div>
 
         <UserIO />
