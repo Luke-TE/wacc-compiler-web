@@ -28,7 +28,8 @@ class App extends React.Component {
       wacc: {
         code: newCode,
         markers: [{ startRow: 0, startCol: 2, endRow: 0, endCol: 20, className: 'warning', type: 'text' }]
-      }
+      },
+      graphData: [{}]
     })
   }
 
@@ -59,11 +60,13 @@ class App extends React.Component {
           <CodeEditor
             heading='JavaScript'
             value={this.state.js.code}
-            markers={this.state.js.markers} />
+            markers={this.state.js.markers}
+            readOnly={true} />
           <CodeEditor
             heading='ARM Assembly'
             value={this.state.arm.code}
-            markers={this.state.arm.markers} />
+            markers={this.state.arm.markers}
+            readOnly={true} />
         </div>
 
         <div id="treeWrapper" style={{ width: '50em', height: '20em', background: 'white' }}>
