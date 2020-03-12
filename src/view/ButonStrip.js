@@ -8,11 +8,10 @@ class ButtonStrip extends React.Component {
     render() {
         return (
             <div>
-                <button>COMPILE</button>
-                <button>COMPILE</button>
-                <button>STEP JS LINE</button>
-                <button>STEP INTO AST NODE</button>
-                <button>STEP OVER AST NODE</button>
+                <button onClick={this.props.onCompileClick}>▶</button>
+                <button onClick={this.props.onStepJsClick}>STEP JS LINE</button>
+                <button onClick={this.props.onStepIntoAstClick}>STEP INTO AST NODE</button>
+                <button onClick={this.props.onStepOverAstClick}>STEP OVER AST NODE</button>
             </div>
         )
     }
