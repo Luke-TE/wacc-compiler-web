@@ -25,7 +25,7 @@ function generateArmMarkers(lineNums) {
 }
 
 function createGraphNode(node, astMeta){
-    let name = node.name;
+    let name = node.name.replace("AST", "");
     let value = node.value;
     let childrenIDs = node.children;
     let children = [];

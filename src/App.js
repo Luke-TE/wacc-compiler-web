@@ -60,7 +60,10 @@ class App extends React.Component {
     clearConsole = () => {
         this.setState({consoleReset: this.state.consoleReset + 1})
     }
+
     processWaccCode = async (code) => {
+        eval("waccPrintingBuffer = ''")
+
         let rsp = await sendWaccCode(code);
         let graph = this.state.graphData;
         if (typeof rsp.isError !== "undefined") {
@@ -73,8 +76,6 @@ class App extends React.Component {
                 graphData: graph
             })
         }
-
-
     }
 
     render() {
@@ -90,10 +91,11 @@ class App extends React.Component {
                                             this.processWaccCode(this.state.wacc.code)
                                             this.clearConsole()
                                         }}
-                                        onStepJsClick={(e) => {
-                                            this.setState({js: {code: "Hello World!"}})
+                                        onExecuteClick={(e) => {
+                                            eval(this.state.js.code)
+                                            eval("waccPrintFinished()")
                                         }}
-                                        onStepOverAstClick={(e) => {
+                                        onStepWaccClick={(e) => {
                                             this.readInputCallBack(e)
                                         }}
                                     />

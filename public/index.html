@@ -11,6 +11,20 @@
     />
     <script>
       var EMULATOR_CONSOLE_READ = () => { return window.prompt()};
+
+      // Fixes for printing with new lines.
+      let waccPrintingBuffer = ""
+      function waccPrint(str) {
+          printing_buffer += str
+      }
+
+      function waccPrintLn(str) {
+          waccPrint(str + "\n")
+      }
+
+      function waccPrintFinished() {
+          console.log(waccPrintingBuffer)
+      }
     </script>
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
