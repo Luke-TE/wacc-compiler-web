@@ -1,18 +1,7 @@
-import React from 'react'
 import axios from 'axios'
 
 const SERVER_ADDR = "http://134.209.31.55:8080/";
 const SERVER_ENDPOINT = "";
-
-const testGraphData = [{
-    name: "WACC Program", children: [{
-        name: "BinOP", attributes: {operation: "Add"},
-        children: [{name: "Const", attributes: {value: "1"}}, {name: "VarIdent", attributes: {ident: "x"}}]
-    }]
-}];
-
-
-
 
 export function astMetaToGraphData(astMeta) {
     let firstNode = astMeta.nodes["0"];
@@ -48,7 +37,7 @@ function createGraphNode(node, astMeta){
             children.push(createGraphNode(child, astMeta))
         }
     }
-    console.log(node)
+
     return {
         name: name,
         attributes: {value: value},

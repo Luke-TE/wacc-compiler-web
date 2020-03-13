@@ -5,9 +5,7 @@ import Tree from 'react-d3-tree';
 // Custom components
 import ButtonStrip from './view/ButonStrip'
 import CodeEditor from './view/CodeEditor'
-import UserIO from './view/UserIO'
 import Terminal from 'terminal-in-react';
-import {makeStyles} from "@material-ui/core/styles";
 
 import Card from "./components/Card/Card.js";
 import CardBody from "./components/Card/CardBody.js";
@@ -15,31 +13,7 @@ import {sendWaccCode, astMetaToGraphData} from './Comm'
 import GridItem from "./components/Grid/GridItem";
 import GridContainer from "./components/Grid/GridContainer";
 
-const cardImagesStyles = {
-    cardImgTop: {
-        width: "100%",
-        borderTopLeftRadius: "calc(.25rem - 1px)",
-        borderTopRightRadius: "calc(.25rem - 1px)"
-    },
-    cardImgBottom: {
-        width: "100%",
-        borderBottomRightRadius: "calc(.25rem - 1px)",
-        borderBottomLeftRadius: "calc(.25rem - 1px)"
-    },
-    cardImgOverlay: {
-        position: "absolute",
-        top: "0",
-        right: "0",
-        bottom: "0",
-        left: "0",
-        padding: "1.25rem"
-    },
-    cardImg: {
-        width: "100%",
-        borderRadius: "calc(.25rem - 1px)"
-    }
-};
-const useStyles = makeStyles(cardImagesStyles);
+import './App.css'
 
 class App extends React.Component {
     constructor(props) {
@@ -79,10 +53,6 @@ class App extends React.Component {
     }
 
     readInputCallBack = (codeToEval) => {
-        console.log(test);
-        // if (!window.EMULATOR_IS_INPUT) {
-        //     window.EMULATOR_CONSOLE_READ = window.prompt()
-        // }
         eval(codeToEval);
         window.EMULATOR_CONSOLE_READ = () => { return window.prompt()};
     };
