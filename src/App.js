@@ -9,7 +9,7 @@ import Terminal from 'terminal-in-react';
 
 import Card from "./components/Card/Card.js";
 import CardBody from "./components/Card/CardBody.js";
-import {sendWaccCode, astMetaToGraphData} from './Comm'
+import {sendWaccCode, astMetaToGraphData, highlightNode} from './Comm'
 import GridItem from "./components/Grid/GridItem";
 import GridContainer from "./components/Grid/GridContainer";
 
@@ -117,19 +117,28 @@ class App extends React.Component {
     proccesLine = () => {
         if (this.state.statementIndex < this.state.mainStatements.length) {
             let current = this.state.currentNode;
-            let jsLines = this.state.js.code.split(/;\n(?!})/);
-            // console.log(jsLines)
-            // console.log(current)
-            let codeLine = jsLines[current.highlighting.js[0].startRow];
-            codeLine = codeLine.replace("var ", "window.");
+            let jsLines = this.state.js.code.split("\n");
+            let startLine = current.highlighting.js[0].startRow;
+            let endLine = current.highlighting.js[0].endRow;
+            let codeLine = "";
+            if(startLine == endLine){
+                 codeLine = jsLines[startLine];
+            } else {
+                for(let i = startLine; i < endLine; i++){
+                    codeLine = codeLine.concat(jsLines[i], "\n")
+                }
+            }
+            codeLine = codeLine.replace("let ", "window.");
             eval(codeLine);
-            ;
             let newIndex = this.state.statementIndex + 1;
+            // let highlightData = highlightNode(current);
             this.setState({
                 currentNode: this.state.mainStatements[newIndex],
                 statementIndex: newIndex
             })
         } else {
+            eval(" waccPrintFinished()");
+            eval("waccPrintingBuffer = \"\"")
             console.log("Finished executing code")
         }
     };

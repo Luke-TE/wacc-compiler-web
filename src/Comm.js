@@ -12,7 +12,7 @@ export function astMetaToGraphData(astMeta) {
 function generateMarkerObject(start, end, off = 0, style="ast-node-highlight") {
     return {
       startRow: start.lineNum - 1,
-      startCol: start.charNum + off,
+      startCol: start.charNum,
       endRow: end.lineNum - 1,
       endCol: end.charNum,
       className: style,
@@ -24,7 +24,7 @@ function generateArmMarkers(lineNums, style = "ast-node-highlight") {
     return lineNums.map(ln => ({startRow: ln - 1, className: style, type: "background"}))
 }
 
-function highlightNode(node, style = "ast-node-highlight") {
+export function highlightNode(node, style = "ast-node-highlight") {
     return {
         wacc: [generateMarkerObject(node.waccStart, node.waccEnd, style)],
         js:   typeof node.jsStart === "undefined" ? [{}] : [generateMarkerObject(node.jsStart, node.jsEnd, -1, style)],
@@ -64,7 +64,7 @@ export async function sendWaccCode(code) {
         })
         .catch(error => {
             if (typeof error.response.data.errors !== "undefined") {
-                var errors = error.response.data.errors;
+                let errors = error.response.data.errors;
                 for (let entry of errors.keys()) {
                     console.log(errors[entry])
                 }
