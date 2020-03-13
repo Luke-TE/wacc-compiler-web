@@ -135,11 +135,16 @@ class App extends React.Component {
             codeLine = codeLine.replace("let ", "window.");
             eval(codeLine);
             let newIndex = this.state.statementIndex + 1;
-            // let highlightData = highlightNode(current);
-            this.setState({
-                currentNode: this.state.mainStatements[newIndex],
-                statementIndex: newIndex
-            })
+            let newNode = this.state.mainStatements[newIndex];
+            this.setState((state, props) => {
+                state.wacc.markers = current.highlighting.wacc;
+                state.js.markers = current.highlighting.js;
+                state.arm.markers = current.highlighting.arm;
+                state.currentNode = newNode;
+                state.statementIndex = newIndex;
+                return state;
+            });
+
         } else {
             eval(" waccPrintFinished()");
             eval("waccPrintingBuffer = \"\"")
