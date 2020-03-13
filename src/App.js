@@ -90,7 +90,10 @@ class App extends React.Component {
     clearConsole = () => {
         this.setState({consoleReset: this.state.consoleReset + 1})
     }
+
     processWaccCode = async (code) => {
+        eval("waccPrintingBuffer = ''")
+
         let rsp = await sendWaccCode(code);
         let graph = this.state.graphData;
         if (typeof rsp.isError !== "undefined") {
@@ -148,12 +151,12 @@ class App extends React.Component {
                                             this.clearConsole()
                                             this.getStatements()})
                                         }}
-                                        onStepWaccClick={(e) => {
-                                            this.proccesLine()
-                                        }}
                                         onExecuteClick={(e) => {
-
-                                            // this.readInputCallBack(e)
+                                            eval(this.state.js.code)
+                                            eval("waccPrintFinished()")
+                                        }}
+                                        onStepWaccClick={(e) => {
+                                            this.readInputCallBack(e)
                                         }}
                                     />
                                 </CardBody>
