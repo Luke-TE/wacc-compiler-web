@@ -9,19 +9,27 @@ export function astMetaToGraphData(astMeta) {
     return graphData
 }
 
-function generateMarkerObject(start, end, off = 0) {
+function generateMarkerObject(start, end, off = 0, style="ast-node-highlight") {
     return {
       startRow: start.lineNum - 1,
       startCol: start.charNum + off,
       endRow: end.lineNum - 1,
       endCol: end.charNum,
-      className: "ast-node-highlight",
+      className: style,
       type: "text"
     }
 }
 
-function generateArmMarkers(lineNums) {
-    return lineNums.map(ln => ({startRow: ln - 1, className: "ast-node-highlight", type: "background"}))
+function generateArmMarkers(lineNums, style = "ast-node-highlight") {
+    return lineNums.map(ln => ({startRow: ln - 1, className: style, type: "background"}))
+}
+
+function highlightNode(node, style = "ast-node-highlight") {
+    return {
+        wacc: [generateMarkerObject(node.waccStart, node.waccEnd, style)],
+        js:   typeof node.jsStart === "undefined" ? [{}] : [generateMarkerObject(node.jsStart, node.jsEnd, -1, style)],
+        arm:  generateArmMarkers(node.armLineNums, style)
+    }
 }
 
 function createGraphNode(node, astMeta){
@@ -41,11 +49,7 @@ function createGraphNode(node, astMeta){
     return {
         name: name,
         attributes: {value: value},
-        highlighting: {
-            wacc:   [generateMarkerObject(node.waccStart, node.waccEnd)],
-            js:     typeof node.jsStart === "undefined" ? [{}] : [generateMarkerObject(node.jsStart, node.jsEnd, -1)],
-            arm:    generateArmMarkers(node.armLineNums)
-        },
+        highlighting: highlightNode(node),
         children: children
     }
 
