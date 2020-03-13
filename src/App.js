@@ -50,6 +50,7 @@ class App extends React.Component {
             js: {code: "", markers: [],},
             arm: {code: "", markers: [],},
             graphData: [{}],
+            consoleReset: 0
         }
     }
 
@@ -59,7 +60,7 @@ class App extends React.Component {
                 code: newCode,
                 markers: [{startRow: 0, startCol: 2, endRow: 0, endCol: 20, className: 'warning-highlight', type: 'text'}]
             },
-            graphData: [{}]
+            graphData: [{}],
         })
     }
 
@@ -104,6 +105,9 @@ class App extends React.Component {
         window.EMULATOR_CONSOLE_READ = () => { return window.prompt()};
     };
 
+    clearConsole = () => {
+        this.setState({consoleReset: this.state.consoleReset + 1})
+    }
     processWaccCode = async (code) => {
         let rsp = await sendWaccCode(code);
         let graph = this.state.graphData;
@@ -124,8 +128,6 @@ class App extends React.Component {
     render() {
         return (
             <div className="App">
-
-
                 <div className="App-code-editors">
                     <GridContainer>
                         <GridItem lg={12}>
@@ -134,13 +136,15 @@ class App extends React.Component {
                                     <ButtonStrip
                                         onCompileClick={(e) => {
                                             this.processWaccCode(this.state.wacc.code)
+                                            this.clearConsole()
                                         }}
                                         onStepJsClick={(e) => {
                                             this.setState({js: {code: "Hello World!"}})
                                         }}
                                         onStepOverAstClick={(e) => {
                                             this.readInputCallBack(e)
-                                        }}/>
+                                        }}
+                                    />
                                 </CardBody>
                             </Card>
                         </GridItem>
@@ -206,7 +210,7 @@ class App extends React.Component {
                                         <Terminal commandPassThrough={cmd => {
                                             window.EMULATOR_CONSOLE_READ = () => {return cmd[0]};
                                             window.EMULATOR_IS_INPUT = true;
-                                        }} watchConsoleLogging hideTopBar allowTabs={false}/>
+                                        }} watchConsoleLogging hideTopBar allowTabs={false} key={this.state.consoleReset}/>
                                     </div>
                                 </CardBody>
                             </Card>
