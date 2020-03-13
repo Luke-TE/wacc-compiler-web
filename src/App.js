@@ -56,10 +56,9 @@ class App extends React.Component {
 
     onWaccCodeChange = (newCode) => {
         this.setState({
-            wacc: {
-                code: newCode,
-                markers: [{startRow: 0, startCol: 2, endRow: 0, endCol: 20, className: 'warning-highlight', type: 'text'}]
-            },
+            wacc: {code: newCode, markers: []},
+            js: {code: "", markers: []},
+            arm: {code: "", markers: []},
             graphData: [{}],
         })
     }
@@ -68,11 +67,11 @@ class App extends React.Component {
       let hl = nodeData.highlighting;
 
       this.setState((state, props) => {
-          return {
-            wacc: {code: state.wacc.code, markers: hl.wacc},
-            js: {code: state.js.code, markers: hl.js},
-            arm: {code: state.arm.code, markers: hl.arm}
-          }
+          state.wacc.markers = hl.wacc;
+          state.js.markers = hl.js;
+          state.arm.markers = hl.arm;
+
+          return state
       })
     }
 
@@ -174,6 +173,7 @@ class App extends React.Component {
                                             data={this.state.graphData}
                                             onMouseOver={this.onNodeOver}
                                             onMouseOut={this.onNodeOut}
+                                            onClick={(n,e) => console.log(n)}
                                             orientation="vertical"/>
                                     </div>
                                 </CardBody>

@@ -25,10 +25,14 @@ function generateMarkerObject(start, end) {
       startRow: start.lineNum - 1,
       startCol: start.charNum,
       endRow: end.lineNum - 1,
-      endCol: end.charNum - 1,
+      endCol: end.charNum,
       className: "ast-node-highlight",
       type: "text"
     }
+}
+
+function generateArmMarkers(lineNums) {
+    return lineNums.map(ln => ({startRow: ln - 1, className: "ast-node-highlight", type: "background"}))
 }
 
 function createGraphNode(node, astMeta){
@@ -44,14 +48,14 @@ function createGraphNode(node, astMeta){
             children.push(createGraphNode(child, astMeta))
         }
     }
-    //console.log(JSON.stringify(retObj))
+    console.log(node)
     return {
         name: name,
         attributes: {value: value},
         highlighting: {
             wacc:   [generateMarkerObject(node.waccStart, node.waccEnd)],
             js:     typeof node.jsStart === "undefined" ? [{}] : [generateMarkerObject(node.jsStart, node.jsEnd)],
-            arm:    []
+            arm:    generateArmMarkers(node.armLineNums)
         },
         children: children
     }
