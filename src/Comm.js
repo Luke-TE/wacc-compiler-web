@@ -16,17 +16,21 @@ const testGraphData = [{
 
 export function astMetaToGraphData(astMeta) {
     let firstNode = astMeta.nodes["0"];
-    let graphData = createGraphNode(firstNode.name, firstNode.value, firstNode.children, astMeta);
+    let graphData = createGraphNode(firstNode, astMeta);
     return graphData
 }
 
-function createGraphNode(name, value, childrenIDs, astMeta){
+function createGraphNode(node, astMeta){
+    let name = node.name;
+    let value = node.value;
+    let childrenIDs = node.children;
     let children = [];
+
     if(typeof childrenIDs !== "undefined") {
         for (let i = 0; i < childrenIDs.length; i++) {
             let childID = childrenIDs[i];
             let child = astMeta.nodes[childID];
-            children.push(createGraphNode(child.name, child.value, child.children, astMeta))
+            children.push(createGraphNode(child, astMeta))
         }
     }
     // console.log(JSON.stringify(retObj))
