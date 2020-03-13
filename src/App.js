@@ -57,10 +57,42 @@ class App extends React.Component {
         this.setState({
             wacc: {
                 code: newCode,
-                markers: [{startRow: 0, startCol: 2, endRow: 0, endCol: 20, className: 'warning', type: 'text'}]
+                markers: [{startRow: 0, startCol: 2, endRow: 0, endCol: 20, className: 'warning-highlight', type: 'text'}]
             },
             graphData: [{}]
         })
+    }
+
+    onNodeOver = (nodeData, evt) => {
+      let hl = nodeData.highlighting;
+
+      this.setState((state, props) => {
+          let armMarkers = state.arm.markers;
+          hl.arm.array.forEach(element => armMarkers.append(element))
+
+          return {
+            wacc: {markers: state.wacc.markers.append(hl.wacc)},
+            js: {markers: state.js.markers.append(hl.js)},
+            arm: {markers: armMarkers}
+          }
+      })
+    }
+
+    onNodeOut = (nodeData, evt) => {
+      let hl = nodeData.highlighting;
+
+      this.setState((state, props) => {
+          let waccMarkerIdx = state.wacc.markers.indexOf(hl.wacc);
+          let jsMarkerIdx = state.js.markers.indexOf(hl.js)
+
+          let armMarkers = [];
+
+          return {
+            wacc: {markers: state.wacc.markers.splice(waccMarkerIdx, 1)},
+            js: {markers: state.js.markers.splice(jsMarkerIdx, 1)},
+            arm: {markers: armMarkers}
+          }
+      })
     }
 
     readInputCallBack = (codeToEval) => {
@@ -151,7 +183,10 @@ class App extends React.Component {
                                 <CardBody>
                                     <div style={{height: '50em'}}>
                                         <Tree
+                                            collapsible={false}
                                             data={this.state.graphData}
+                                            onMouseOver={this.onNodeOver}
+                                            onMouseOut={this.onNodeOut}
                                             orientation="vertical"/>
                                     </div>
                                 </CardBody>

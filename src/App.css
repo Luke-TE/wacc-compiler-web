@@ -37,7 +37,12 @@ body {
   width: auto;
 }
 
-.warning {
+.warning-highlight {
     background: rgba(255, 50, 50, 0.1);
     position: absolute;
+}
+
+.ast-node-highlight {
+  background: rgba(50, 197, 255, 0.3);
+  position: absolute;
 }

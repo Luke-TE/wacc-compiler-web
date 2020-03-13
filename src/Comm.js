@@ -20,6 +20,17 @@ export function astMetaToGraphData(astMeta) {
     return graphData
 }
 
+function generateMarkerObject(start, end) {
+    return {
+      startRow: start.lineNum,
+      startCol: start.charNum,
+      endRow: end.lineNum,
+      endCol: end.charNum,
+      className: "ast-node-highlight",
+      type: "text"
+    }
+}
+
 function createGraphNode(node, astMeta){
     let name = node.name;
     let value = node.value;
@@ -33,10 +44,15 @@ function createGraphNode(node, astMeta){
             children.push(createGraphNode(child, astMeta))
         }
     }
-    // console.log(JSON.stringify(retObj))
+    //console.log(JSON.stringify(retObj))
     return {
         name: name,
         attributes: {value: value},
+        highlighting: {
+            wacc:   generateMarkerObject(node.waccStart, node.waccEnd),
+            js:     typeof node.jsStart === "undefined" ? {} : generateMarkerObject(node.jsStart, node.jsEnd),
+            arm:    []
+        },
         children: children
     }
 
