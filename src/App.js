@@ -68,32 +68,15 @@ class App extends React.Component {
       let hl = nodeData.highlighting;
 
       this.setState((state, props) => {
-          let armMarkers = state.arm.markers;
-          hl.arm.array.forEach(element => armMarkers.append(element))
-
           return {
-            wacc: {markers: state.wacc.markers.append(hl.wacc)},
-            js: {markers: state.js.markers.append(hl.js)},
-            arm: {markers: armMarkers}
+            wacc: {code: state.wacc.code, markers: hl.wacc},
+            js: {code: state.js.code, markers: hl.js},
+            arm: {code: state.arm.code, markers: hl.arm}
           }
       })
     }
 
     onNodeOut = (nodeData, evt) => {
-      let hl = nodeData.highlighting;
-
-      this.setState((state, props) => {
-          let waccMarkerIdx = state.wacc.markers.indexOf(hl.wacc);
-          let jsMarkerIdx = state.js.markers.indexOf(hl.js)
-
-          let armMarkers = [];
-
-          return {
-            wacc: {markers: state.wacc.markers.splice(waccMarkerIdx, 1)},
-            js: {markers: state.js.markers.splice(jsMarkerIdx, 1)},
-            arm: {markers: armMarkers}
-          }
-      })
     }
 
     readInputCallBack = (codeToEval) => {

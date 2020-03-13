@@ -9,8 +9,9 @@ class ButtonStrip extends React.Component {
     render() {
         return (
             <div>
-                <Button onClick={this.props.onCompileClick}>▶</Button>
-                <Button onClick={this.props.onStepJsClick}>STEP JS LINE</Button>
+                <Button onClick={this.props.onCompileClick}>COMPILE</Button>
+                <Button onClick={this.props.onExecuteClick}>EXECUTE</Button>
+                <Button onClick={this.props.onStepWaccClick}>STEP WACC LINE</Button>
             </div>
         )
     }

@@ -22,10 +22,10 @@ export function astMetaToGraphData(astMeta) {
 
 function generateMarkerObject(start, end) {
     return {
-      startRow: start.lineNum,
+      startRow: start.lineNum - 1,
       startCol: start.charNum,
-      endRow: end.lineNum,
-      endCol: end.charNum,
+      endRow: end.lineNum - 1,
+      endCol: end.charNum - 1,
       className: "ast-node-highlight",
       type: "text"
     }
@@ -49,8 +49,8 @@ function createGraphNode(node, astMeta){
         name: name,
         attributes: {value: value},
         highlighting: {
-            wacc:   generateMarkerObject(node.waccStart, node.waccEnd),
-            js:     typeof node.jsStart === "undefined" ? {} : generateMarkerObject(node.jsStart, node.jsEnd),
+            wacc:   [generateMarkerObject(node.waccStart, node.waccEnd)],
+            js:     typeof node.jsStart === "undefined" ? [{}] : [generateMarkerObject(node.jsStart, node.jsEnd)],
             arm:    []
         },
         children: children

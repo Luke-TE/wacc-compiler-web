@@ -20,6 +20,9 @@ class CodeEditor extends React.Component {
         return (
             <div className="ace-editor">
                 {this.heading()}
+                <p>
+                    Highlighting {JSON.stringify(this.props.markers)}
+                </p>
                 <AceEditor
                     mode="java"
                     theme="github"
