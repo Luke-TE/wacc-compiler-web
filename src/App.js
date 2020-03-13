@@ -24,7 +24,37 @@ class App extends React.Component {
             js: {code: "", markers: [],},
             arm: {code: "", markers: [],},
             graphData: [{}],
-            consoleReset: 0
+            consoleReset: 0,
+            mainStatements: [{}],
+            statementIndex: 0,
+            currentNode: {
+                name: "",
+                attributes: {value: ""},
+                highlighting: {
+                    wacc:   [{
+                        startRow: 0,
+                        startCol: 0,
+                        endRow: 0,
+                        endCol: 0,
+                        className: "",
+                        type: ""}],
+                    js:     [{
+                        startRow: 0,
+                        startCol: 0,
+                        endRow: 0,
+                        endCol: 0,
+                        className: "",
+                        type: ""}],
+                    arm:    [{
+                        startRow: 0,
+                        startCol: 0,
+                        endRow: 0,
+                        endCol: 0,
+                        className: "",
+                        type: ""}]
+                },
+                children: [{}]
+            }
         }
     }
 
@@ -76,7 +106,36 @@ class App extends React.Component {
                 graphData: graph
             })
         }
-    }
+
+
+    };
+    proccesLine = () => {
+        if(this.state.statementIndex < this.state.mainStatements.length){
+            let current = this.state.currentNode;
+            let jsLines = this.state.js.code.split(/;\n(?!})/);
+            // console.log(jsLines)
+            // console.log(current)
+            let codeLine = jsLines[current.highlighting.js[0].startRow];
+            codeLine = codeLine.replace("var ", "window.");
+            eval(codeLine);;
+            let newIndex = this.state.statementIndex + 1;
+            this.setState({
+                currentNode: this.state.mainStatements[newIndex],
+                statementIndex: newIndex})
+        } else {
+            console.log("Finished executing code")
+        }
+    };
+
+    getStatements = () => {
+       let rootChildren =  this.state.graphData.children;
+       let funcMain = rootChildren[rootChildren.length - 1];
+       let mainFuncStatementsNode = funcMain.children[0];
+       let mainFuncStatements = mainFuncStatementsNode.children;
+       this.setState({mainStatements: mainFuncStatements,
+           currentNode: mainFuncStatements[0],
+           statementIndex: 0})
+    };
 
     render() {
         return (
@@ -88,8 +147,9 @@ class App extends React.Component {
                                 <CardBody>
                                     <ButtonStrip
                                         onCompileClick={(e) => {
-                                            this.processWaccCode(this.state.wacc.code)
+                                            this.processWaccCode(this.state.wacc.code).then(() => {
                                             this.clearConsole()
+                                            this.getStatements()})
                                         }}
                                         onExecuteClick={(e) => {
                                             eval(this.state.js.code)
