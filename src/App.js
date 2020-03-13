@@ -65,12 +65,12 @@ class App extends React.Component {
 
     readInputCallBack = (codeToEval) => {
         console.log(test);
-        if (!EMULATOR_IS_INPUT) {
-            EMULATOR_CONSOLE_READ = window.prompt()
+        if (!window.EMULATOR_IS_INPUT) {
+            window.EMULATOR_CONSOLE_READ = window.prompt()
         }
         eval(codeToEval);
-        EMULATOR_CONSOLE_READ = "";
-        EMULATOR_IS_INPUT = false;
+        window.EMULATOR_CONSOLE_READ = "";
+        window.EMULATOR_IS_INPUT = false;
     };
 
     processWaccCode = async (code) => {
@@ -170,7 +170,8 @@ class App extends React.Component {
                                         }}
                                     >
                                         <Terminal commandPassThrough={cmd => {
-                                            test = cmd[0]
+                                            window.EMULATOR_CONSOLE_READ = cmd[0];
+                                            window.EMULATOR_IS_INPUT = true;
                                         }} watchConsoleLogging hideTopBar allowTabs={false}/>
                                     </div>
                                 </CardBody>
