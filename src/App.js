@@ -63,11 +63,15 @@ class App extends React.Component {
         })
     }
 
-    readInputCallBack = (input) => {
-
-        console.log(test)
-        test = "";
-    }
+    readInputCallBack = (codeToEval) => {
+        console.log(test);
+        if(!EMULATOR_IS_INPUT){
+            EMULATOR_CONSOLE_READ = window.prompt()
+        }
+        eval(codeToEval);
+        EMULATOR_CONSOLE_READ = "";
+        EMULATOR_IS_INPUT = false;
+    };
 
     processWaccCode = async (code) => {
         let rsp = await sendWaccCode(code);
