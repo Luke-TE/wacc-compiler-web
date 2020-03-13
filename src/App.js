@@ -69,7 +69,7 @@ class App extends React.Component {
         test = "";
     }
 
-    processWaccCode =  async (code) => {
+    processWaccCode = async (code) => {
         let rsp = await sendWaccCode(code);
         let graph = this.state.graphData;
         if (typeof rsp.isError !== "undefined") {
@@ -143,7 +143,7 @@ class App extends React.Component {
                                 </CardBody>
                             </Card>
                         </GridItem>
-                        <GridItem xs={12} sm={12} md={6}>
+                        <GridItem xs={12} sm={12} md={8}>
                             <Card>
                                 <CardBody>
                                     <div style={{height: '50em'}}>
@@ -154,12 +154,21 @@ class App extends React.Component {
                                 </CardBody>
                             </Card>
                         </GridItem>
-                        <GridItem xs={12} sm={12} md={6}>
+                        <GridItem xs={12} sm={12} md={4}>
                             <Card>
                                 <CardBody>
+                                    <div
+                                        style={{
+                                            display: "flex",
+                                            justifyContent: "center",
+                                            alignItems: "center",
+                                            height: "50em"
+                                        }}
+                                    >
                                     <Terminal commandPassThrough={cmd => {
                                         test = cmd[0]
                                     }} watchConsoleLogging hideTopBar allowTabs={false}/>
+                                    </div>
                                 </CardBody>
                             </Card>
                         </GridItem>

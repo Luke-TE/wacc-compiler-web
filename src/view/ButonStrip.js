@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from "../components/CustomButtons/Button";
 
 class ButtonStrip extends React.Component {
     constructor(props) {
@@ -8,10 +9,10 @@ class ButtonStrip extends React.Component {
     render() {
         return (
             <div>
-                <button onClick={this.props.onCompileClick}>▶</button>
-                <button onClick={this.props.onStepJsClick}>STEP JS LINE</button>
-                <button onClick={this.props.onStepIntoAstClick}>STEP INTO AST NODE</button>
-                <button onClick={this.props.onStepOverAstClick}>STEP OVER AST NODE</button>
+                <Button onClick={this.props.onCompileClick}>▶</Button>
+                <Button onClick={this.props.onStepJsClick}>STEP JS LINE</Button>
+                <Button onClick={this.props.onStepIntoAstClick}>STEP INTO AST NODE</Button>
+                <Button onClick={this.props.onStepOverAstClick}>STEP OVER AST NODE</Button>
             </div>
         )
     }
