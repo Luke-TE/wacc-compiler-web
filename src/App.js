@@ -143,7 +143,6 @@ class App extends React.Component {
                                             data={this.state.graphData}
                                             onMouseOver={this.onNodeOver}
                                             onMouseOut={this.onNodeOut}
-                                            onClick={(n,e) => console.log(n)}
                                             orientation="vertical"/>
                                     </div>
                                 </CardBody>
