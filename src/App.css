@@ -17,7 +17,7 @@ body {
 .tree-wrapper {
   background: white;
   margin-top: 10px;
-  height: 20em;
+  height: auto;
 }
 
 .ace-editor {
