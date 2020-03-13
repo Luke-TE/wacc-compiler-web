@@ -9,10 +9,10 @@ export function astMetaToGraphData(astMeta) {
     return graphData
 }
 
-function generateMarkerObject(start, end) {
+function generateMarkerObject(start, end, off = 0) {
     return {
       startRow: start.lineNum - 1,
-      startCol: start.charNum,
+      startCol: start.charNum + off,
       endRow: end.lineNum - 1,
       endCol: end.charNum,
       className: "ast-node-highlight",
@@ -43,7 +43,7 @@ function createGraphNode(node, astMeta){
         attributes: {value: value},
         highlighting: {
             wacc:   [generateMarkerObject(node.waccStart, node.waccEnd)],
-            js:     typeof node.jsStart === "undefined" ? [{}] : [generateMarkerObject(node.jsStart, node.jsEnd)],
+            js:     typeof node.jsStart === "undefined" ? [{}] : [generateMarkerObject(node.jsStart, node.jsEnd, -1)],
             arm:    generateArmMarkers(node.armLineNums)
         },
         children: children
