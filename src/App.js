@@ -71,6 +71,7 @@ class App extends React.Component {
 
     processWaccCode = (code) => {
         let rsp = sendWaccCode(code)
+        console.log(rsp)
         let graph = astMetaToGraphData(rsp.astMeta)
 
         this.setState({
