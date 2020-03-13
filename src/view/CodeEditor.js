@@ -32,7 +32,7 @@ class CodeEditor extends React.Component {
                     value={this.props.value}
                     markers={this.props.markers}
                     readOnly={this.props.readOnly}
-
+                    width='auto'
                     editorProps={{ $blockScrolling: true }} />
             </div>
         )
