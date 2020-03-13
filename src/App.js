@@ -117,6 +117,10 @@ class App extends React.Component {
     proccesLine = () => {
         if (this.state.statementIndex < this.state.mainStatements.length) {
             let current = this.state.currentNode;
+            if(current.name.includes("StatementRead")){
+                eval(" waccPrintFinished()");
+                eval("waccPrintingBuffer = \"\"")
+            }
             let jsLines = this.state.js.code.split("\n");
             let startLine = current.highlighting.js[0].startRow;
             let endLine = current.highlighting.js[0].endRow;
