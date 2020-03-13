@@ -65,7 +65,7 @@ class App extends React.Component {
 
     readInputCallBack = (codeToEval) => {
         console.log(test);
-        if(!EMULATOR_IS_INPUT){
+        if (!EMULATOR_IS_INPUT) {
             EMULATOR_CONSOLE_READ = window.prompt()
         }
         eval(codeToEval);
@@ -169,9 +169,9 @@ class App extends React.Component {
                                             height: "50em"
                                         }}
                                     >
-                                    <Terminal commandPassThrough={cmd => {
-                                        test = cmd[0]
-                                    }} watchConsoleLogging hideTopBar allowTabs={false}/>
+                                        <Terminal commandPassThrough={cmd => {
+                                            test = cmd[0]
+                                        }} watchConsoleLogging hideTopBar allowTabs={false}/>
                                     </div>
                                 </CardBody>
                             </Card>
@@ -179,14 +179,6 @@ class App extends React.Component {
 
                     </GridContainer>
                 </div>
-
-                <div className="tree-wrapper">
-
-                </div>
-
-                <div id="inputoutput"></div>
-
-
             </div>
         )
     }
