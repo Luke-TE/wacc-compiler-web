@@ -1,8 +1,8 @@
 import React from 'react'
 import axios from 'axios'
 
-const SERVER_ADDR = "http://localhost:3000/"
-const SERVER_ENDPOINT = "compile/wacc"
+const SERVER_ADDR = "http://192.168.1.67:8080/"
+const SERVER_ENDPOINT = ""
 
 const testGraphData = [{
     name: "WACC Program", children: [{
@@ -19,7 +19,7 @@ export function astMetaToGraphData(astMeta) {
 export function sendWaccCode(code) {
     let ADDR = SERVER_ADDR + SERVER_ENDPOINT
     console.log(`Sending ${code} to ${ADDR}`)
-    axios.get(ADDR)
+    axios.post(ADDR, {contents: code}, {headers:{'Content-Type': 'application/json'}})
         .then(res => {
             console.log(res)
         })
