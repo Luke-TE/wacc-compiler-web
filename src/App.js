@@ -174,83 +174,86 @@ class App extends React.Component {
                                             this.proccesLine()
                                         }}
 
-                                            />
-                                            </CardBody>
-                                            </Card>
-                                            </GridItem>
-                                            <GridItem xs={12} sm={12} md={4}>
-                                            <Card>
-                                            <CardBody>
-                                            <CodeEditor
-                                            heading='WACC Code'
-                                            onCodeChange={this.onWaccCodeChange}
-                                            value={this.state.wacc.code}
-                                            markers={this.state.wacc.markers}/>
-                                            </CardBody>
-                                            </Card>
-                                            </GridItem>
-                                            <GridItem xs={12} sm={12} md={4}>
+                                    />
+                                </CardBody>
+                            </Card>
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={4}>
+                            <Card>
+                                <CardBody>
+                                    <CodeEditor
+                                        heading='WACC Code'
+                                        onCodeChange={this.onWaccCodeChange}
+                                        value={this.state.wacc.code}
+                                        markers={this.state.wacc.markers}/>
+                                </CardBody>
+                            </Card>
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={4}>
 
-                                            <Card>
-                                            <CardBody>
-                                            <CodeEditor
-                                            heading='JavaScript'
-                                            value={this.state.js.code}
-                                            markers={this.state.js.markers}
-                                            readOnly={true}/>
-                                            </CardBody>
-                                            </Card>
-                                            </GridItem>
-                                            <GridItem xs={12} sm={12} md={4}>
-                                            <Card>
-                                            <CardBody>
-                                            <CodeEditor
-                                            heading='ARM Assembly'
-                                            value={this.state.arm.code}
-                                            markers={this.state.arm.markers}
-                                            readOnly={true}/>
-                                            </CardBody>
-                                            </Card>
-                                            </GridItem>
-                                            <GridItem xs={12} sm={12} md={8}>
-                                            <Card>
-                                            <CardBody>
-                                            <div style={{height: '50em'}}>
-                                            <Tree
+                            <Card>
+                                <CardBody>
+                                    <CodeEditor
+                                        heading='JavaScript'
+                                        value={this.state.js.code}
+                                        markers={this.state.js.markers}
+                                        readOnly={true}/>
+                                </CardBody>
+                            </Card>
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={4}>
+                            <Card>
+                                <CardBody>
+                                    <CodeEditor
+                                        heading='ARM Assembly'
+                                        value={this.state.arm.code}
+                                        markers={this.state.arm.markers}
+                                        readOnly={true}/>
+                                </CardBody>
+                            </Card>
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={8}>
+                            <Card>
+                                <CardBody>
+                                    <div style={{height: '50em'}}>
+                                        <Tree
                                             collapsible={false}
                                             data={this.state.graphData}
                                             onMouseOver={this.onNodeOver}
                                             onMouseOut={this.onNodeOut}
                                             orientation="vertical"/>
-                                            </div>
-                                            </CardBody>
-                                            </Card>
-                                            </GridItem>
-                                            <GridItem xs={12} sm={12} md={4}>
-                                            <Card>
-                                            <CardBody>
-                                            <div
-                                            style={{
+                                    </div>
+                                </CardBody>
+                            </Card>
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={4}>
+                            <Card>
+                                <CardBody>
+                                    <div
+                                        style={{
                                             display: "flex",
                                             justifyContent: "center",
                                             alignItems: "center",
                                             height: "50em"
-                                            }}
-                                            >
-                                            <Terminal commandPassThrough={cmd => {
-                                            window.EMULATOR_CONSOLE_READ = () => {return cmd[0]};
+                                        }}
+                                    >
+                                        <Terminal commandPassThrough={cmd => {
+                                            window.EMULATOR_CONSOLE_READ = () => {
+                                                return cmd[0]
+                                            };
                                             window.EMULATOR_IS_INPUT = true;
-                                            }} watchConsoleLogging hideTopBar allowTabs={false} key={this.state.consoleReset}/>
-                                            </div>
-                                            </CardBody>
-                                            </Card>
-                                            </GridItem>
+                                        }} watchConsoleLogging hideTopBar allowTabs={false}
+                                                  key={this.state.consoleReset}/>
+                                    </div>
+                                </CardBody>
+                            </Card>
+                        </GridItem>
 
-                                            </GridContainer>
-                                            </div>
-                                            </div>
-                                            )
-                                            }
-                                            }
+                    </GridContainer>
+                </div>
+            </div>
+        )
+    }
+}
 
-                                            export default App;
+export default App;
