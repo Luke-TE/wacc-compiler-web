@@ -17,16 +17,19 @@ export function astMetaToGraphData(astMeta) {
 }
 
 export async function sendWaccCode(code) {
-    let ADDR = SERVER_ADDR + SERVER_ENDPOINT
-    // console.log(`Sending ${code} to ${ADDR}`)
+    let ADDR = SERVER_ADDR + SERVER_ENDPOINT;
+    var data = {isError: true};
     await axios.post(ADDR, {contents: code}, {headers:{'Content-Type': 'application/json'}})
         .then(res => {
-          console.log(res.data)
-          return res.data
-            // console.log(res)
+          data =  res.data
         })
-        .catch(reason => {
-            // console.log(reason)
-            return
-        })
+        .catch(error => {
+            if(typeof error.response.data.errors !== "undefined" ){
+                var errors = error.response.data.errors;
+                for (let entry of errors.keys()) {
+                    console.log(errors[entry])
+                }
+            }
+        });
+    return data
 }

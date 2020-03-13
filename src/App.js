@@ -69,16 +69,21 @@ class App extends React.Component {
         test = "";
     }
 
-    processWaccCode = (code) => {
-        let rsp = sendWaccCode(code)
-        console.log(rsp)
-        let graph = astMetaToGraphData(rsp.astMeta)
+    processWaccCode =  async (code) => {
+        let rsp = await sendWaccCode(code);
+        let graph = this.state.graphData;
+        if (typeof rsp.isError !== "undefined") {
 
-        this.setState({
-            arm: {code: rsp.armCode},
-            js: {code: rsp.jsCode},
-            graphData: graph
-        })
+        } else {
+            graph = astMetaToGraphData(rsp.astMeta);
+            this.setState({
+                arm: {code: rsp.armCode},
+                js: {code: rsp.jsCode},
+                graphData: graph
+            })
+        }
+
+
     }
 
     render() {
@@ -141,11 +146,11 @@ class App extends React.Component {
                         <GridItem xs={12} sm={12} md={6}>
                             <Card>
                                 <CardBody>
-                                  <div style={{height: '50em'}}>
-                                    <Tree
-                                        data={this.state.graphData}
-                                        orientation="vertical"/>
-                                  </div>
+                                    <div style={{height: '50em'}}>
+                                        <Tree
+                                            data={this.state.graphData}
+                                            orientation="vertical"/>
+                                    </div>
                                 </CardBody>
                             </Card>
                         </GridItem>
