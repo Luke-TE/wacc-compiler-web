@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 
-const SERVER_ADDR = "http://192.168.1.67:8080/";
+const SERVER_ADDR = "http://134.209.31.55:8080/";
 const SERVER_ENDPOINT = "";
 
 const testGraphData = [{
